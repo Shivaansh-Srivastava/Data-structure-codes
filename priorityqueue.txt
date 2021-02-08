@@ -1,0 +1,51 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct node
+{
+    int data;
+    int p;
+    struct node*next;
+};
+struct node*front=NULL;
+struct node*rear=NULL;
+
+void enq(int val,int pr)
+{
+    struct node*newnode=(struct node*)malloc(sizeof(struct node));
+    newnode->data=val;
+    newnode->p=pr;
+    newnode->next=NULL;
+    if(front==NULL || pr<front->p)
+    {
+        newnode->next=front;
+        front=newnode;
+    }
+    else
+    {
+        struct node*temp=front;
+        while(temp->next!=NULL && temp->next->p<=pr)
+            temp=temp->next;
+        newnode->next=temp->next;
+        temp->next=newnode;
+    }
+}
+void display()
+{
+    struct node*i;
+    for(i=front;i!=NULL;i=i->next)
+        printf("%d->",i->data);
+}
+int main()
+{
+    int n,val,priority,i;
+    scanf("%d",&n);
+    for(i=0;i<n;i++)
+    {
+        scanf("%d",&val);
+        scanf("%d",&priority);
+        enq(val,priority);
+    }
+    display();
+    return 0;
+}

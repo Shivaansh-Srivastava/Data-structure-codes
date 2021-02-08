@@ -1,0 +1,45 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int q[10];
+int front=-1,rear=-1;
+
+void push()
+{
+    int val;
+    scanf("%d",&val);
+    if(front==-1)
+    {
+        front++;
+        q[++rear]=val;
+    }
+    else
+    {
+        q[++rear]=val;
+    }
+}
+void pop()
+{
+    if(front==-1)
+        printf("Error\n");
+    else
+        front++;
+}
+void display()
+{
+    int i;
+    for(i=front;i<=rear;i++)
+        printf("%d->",q[i]);
+}
+int main()
+{
+    int n,i;
+    scanf("%d",&n);
+    for(i=0;i<n;i++)
+        push();
+    display();
+    printf("\n");
+    pop();
+    display();
+    return 0;
+}

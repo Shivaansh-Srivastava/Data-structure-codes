@@ -1,0 +1,92 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct node
+{
+    int data;
+    struct node*next;
+}*head=NULL;
+
+void insert()
+{
+    int val;
+    scanf("%d",&val);
+    struct node*newnode;
+    newnode=(struct node*)malloc(sizeof(struct node));
+    newnode->data=val;
+    newnode->next=NULL;
+    if(head==NULL)
+        head=newnode;
+    else
+    {
+        struct node*temp=head;
+        while(temp->next!=NULL)
+            temp=temp->next;
+        temp->next=newnode;
+    }
+}
+void display()
+{
+    struct node*i;
+    for(i=head;i!=NULL;i=i->next)
+        printf("%d->",i->data);
+}
+void del()
+{
+    struct node*prev,*curr;
+    int pos,count=0,i;
+    scanf("%d",&pos);
+    struct node*temp=head;
+    while(temp!=NULL)
+    {
+        temp=temp->next;
+        count++;
+    }
+    if(pos==1)
+    {
+        temp=head;
+        head=head->next;
+        free(temp);
+    }
+    if(pos>1 && pos<=count)
+    {
+        curr=head;
+        for(i=1;i<=(pos-1);i++)
+        {
+            prev=curr;
+            curr=curr->next;
+        }
+        prev->next=curr->next;
+        free(curr);
+    }
+}
+void sort()
+{
+    struct node*i,*j,*t;
+    for(i=head;i!=NULL;i=i->next)
+    {
+        for(j=head;j->next!=NULL;j=j->next)
+        {
+           if(j->data>j->next->data)
+           {
+               t=j->data;
+               j->data=j->next->data;
+               j->next->data=t;
+           }
+        }
+    }
+}
+int main()
+{
+    int n,i;
+    scanf("%d",&n);
+    for(i=0;i<n;i++)
+        insert();
+    display();
+    printf("\n");
+    //del();
+    sort();
+    display();
+
+    return 0;
+}

@@ -1,0 +1,65 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int q[10];
+int front=-1,rear=-1;
+
+int isfull()
+{
+    if((front==rear+1)||(front==0 && rear==9) )
+    return 1;
+}
+int isempty()
+{
+    if(front==-1)
+        return 1;
+}
+void push(int element)
+{
+    int x;
+    if((x=isfull())==1)
+        printf("Error\n");
+    else
+    {
+        if(front==-1)
+            front=0;
+        rear=(rear+1)%10;
+        q[rear]=element;
+    }
+}
+void pop()
+{
+    int x;
+    if((x=isempty())==1)
+        printf("Error\n");
+    else
+    {
+        if(front==rear)
+        {
+            front=-1;
+            rear=-1;
+        }
+        else
+        {
+            front=(front+1)%10;
+        }
+    }
+}
+void display()
+{
+    int i;
+    for(i=front;i!=rear;i=(i+1)%10)
+        printf("%d->",q[i]);
+}
+int main()
+{
+    int n,i,val;
+    scanf("%d",&n);
+    for(i=0;i<n;i++)
+    {
+        scanf("%d",&val);
+        push(val);
+    }
+    display();
+    return 0;
+}

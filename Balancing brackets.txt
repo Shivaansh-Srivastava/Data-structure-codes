@@ -1,0 +1,48 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+char st[20];
+int top=-1;
+int flag=0;
+
+void push(char x)
+{
+    st[++top]=x;
+}
+char pop()
+{
+    return st[top--];
+}
+int main()
+{
+    char exp[20];
+    char *e,x;
+    scanf("%s",exp);
+    e=exp;
+    while(*e!='\0')
+    {
+        if(*e=='(' || *e=='{' || *e=='[')
+            push(*e);
+        if(*e==')')
+        {
+            if((x=pop())!='(')
+                flag=1;
+        }
+        if(*e=='}')
+        {
+            if((x=pop())!='{')
+                flag=1;
+        }
+        if(*e==']')
+        {
+            if((x=pop())!='[')
+                flag=1;
+        }
+        e++;
+    }
+    if(top==-1 && flag==0)
+        printf("Expression is balanced\n");
+    else
+        printf("Expression is not balanced\n");
+    return 0;
+}

@@ -1,0 +1,50 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct node
+{
+    int data;
+    struct node*next;
+};
+struct node*top=NULL;
+
+void push()
+{
+    int val;
+    scanf("%d",&val);
+    struct node*newnode;
+    newnode=(struct node*)malloc(sizeof(struct node));
+    newnode->data=val;
+    newnode->next=NULL;
+    if(top==NULL)
+        top=newnode;
+    else
+    {
+        newnode->next=top;
+        top=newnode;
+    }
+}
+void pop()
+{
+    struct node*temp=top;
+    top=top->next;
+    free(temp);
+}
+void display()
+{
+    struct node*i;
+    for(i=top;i!=NULL;i=i->next)
+        printf("%d->",i->data);
+}
+int main()
+{
+    int n,i;
+    scanf("%d",&n);
+    for(i=0;i<n;i++)
+        push();
+    display();
+    pop();
+    printf("\n");
+    display();
+    return 0;
+}
